@@ -4,20 +4,39 @@ import { useState } from 'react';
 import { Colors } from '../../constants/colors';
 import ImagePicker from './ImagePicker';
 import LocationPicker from './LocationPicker';
+import Button from '../UI/Button';
 
 const PlaceForm = () => {
   const [enteredTitle, setEnteredTitle] = useState('');
+  const [selectLocation, setSelectLocation] = useState();
+  const [takeImage, setTakeImage] = useState();
+
   const changeTitleHandler = (enteredText) => {
     setEnteredTitle(enteredText);
   };
+
+  const pickImage = (pickedImage) => {
+    setTakeImage(pickedImage);
+  };
+
+  const pickLocation = (pickedLocation) => {
+    setSelectLocation(pickedLocation);
+  };
+
+  const addPlaceHandler = () => {
+    console.log(enteredTitle);
+    console.log('In PlaceForm', takeImage);
+  };
+
   return (
     <ScrollView style={styles.form}>
       <View>
         <Text style={styles.label}>Title</Text>
         <TextInput style={styles.input} onChangeText={changeTitleHandler} />
       </View>
-      <ImagePicker />
-      <LocationPicker />
+      <ImagePicker onPickImage={pickImage} />
+      <LocationPicker onPickLocation={pickLocation} />
+      <Button onPress={addPlaceHandler}>Add Place</Button>
     </ScrollView>
   );
 };
